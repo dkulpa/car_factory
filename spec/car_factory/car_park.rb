@@ -31,12 +31,16 @@ class CarPark
   end
 
   def brands
-    @cars_at_park.map(&:brand).uniq
+    all_brands.uniq
   end
 
   def brands_stats
-    stats = Hash.new(0)
-    @cars_at_park.map(&:brand).each { |brand| stats[brand] += 1 }
-    stats
+    all_brands.inject(Hash.new(0)) { |hash, brand| hash[brand] += 1; hash }
+  end
+
+  private
+
+  def all_brands
+    @cars_at_park.map(&:brand)
   end
 end
